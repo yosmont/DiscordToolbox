@@ -1,13 +1,16 @@
 #include <dpp/dpp.h>
 
 #include <string>
-#include "json.hpp"
-	 
-const std::string BOT_TOKEN = "add your token here";
+#include "nlohmann/json.hpp"
+#include "dotenv.h"
+
+//TODO: make a get server config value or default value system, if the server hasn't set a value -> get the default one 
+//  -> use merge/patch to merge a server config to default in a temporary json (?)
 
 int main() {
-  std::shared_ptr<config::AConfig> config{std::make_shared<config::discordToolbox>()};
-  dpp::cluster bot(BOT_TOKEN);
+  dotenv::env.load_env();
+  nlohmann::json config{}; //TODO: load config file, add a default config 
+  dpp::cluster bot(dotenv::env["DISCORD_TOKEN"]);
 
   bot.on_log(dpp::utility::cout_logger());
 
@@ -26,12 +29,13 @@ int main() {
   });
 
   bot.on_message_delete([&bot](const dpp::message_delete_t& event) {
-    if (false == (config["msgDeleteTrack"]["activate"].template get<bool>())) return;
+    //if (false == (config["msgDeleteTrack"]["activate"].template get<bool>())) return;
     (void)event.channel_id; //from channel
     (void)event.guild_id; //from server
     (void)event.id; //message id, message is already deleted when this function is called
 
-    dpp::message msg(event.channel_id, config["msgDeleteTrack"]["msg"].template get<std::string>());
+    //dpp::message msg(event.channel_id, config["msgDeleteTrack"]["msg"].template get<std::string>());
+    dpp::message msg(event.channel_id, "a message as been deleted");
     bot.message_create(msg);
   });
 

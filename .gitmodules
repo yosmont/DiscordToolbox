@@ -1,0 +1,9 @@
+[submodule "dotenv"]
+	path = submodules/dotenv
+	url = git@github.com:adeharo9/cpp-dotenv
+[submodule "json"]
+	path = submodules/json
+	url = git@github.com:nlohmann/json
+[submodule "dpp"]
+	path = submodules/dpp
+	url = git@github.com:brainboxdotcc/DPP
