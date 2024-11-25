@@ -4,12 +4,14 @@
 #include "nlohmann/json.hpp"
 #include "dotenv.h"
 
+#include "Config.hpp"
+
 //TODO: make a get server config value or default value system, if the server hasn't set a value -> get the default one 
 //  -> use merge/patch to merge a server config to default in a temporary json (?)
 
 int main() {
-  dotenv::env.load_env();
-  nlohmann::json config{}; //TODO: load config file, add a default config 
+  dotenv::env.load_dotenv();
+  Config config{}; //TODO: load config file, add a default config 
   dpp::cluster bot(dotenv::env["DISCORD_TOKEN"]);
 
   bot.on_log(dpp::utility::cout_logger());
