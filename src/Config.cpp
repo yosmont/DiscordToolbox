@@ -11,14 +11,14 @@ constexpr nlohmann::json DEFAULT_CONFIG{
 Config::Config(void)
 {
   std::ifstream f("config.json");
-  if (file.is_open()) _data = nlohmann::json::parse(f);
+  if (f.is_open()) _data = nlohmann::json::parse(f);
 }
 
 void Config::EditParam(int guildID, const std::string &feature, const std::string &param, const std::string &val)
 {
   _data[std::to_string(guildID)][feature] = val;
   std::ofstream f("config.json");
-  if (file.is_open()) file << _data.dump();
+  if (f.is_open()) f << _data.dump();
 }
 
 std::string Config::GetParam(int guildID, const std::string &feature, const std::string &param)
