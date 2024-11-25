@@ -17,16 +17,20 @@ int main() {
   bot.on_log(dpp::utility::cout_logger());
 
   bot.on_slashcommand([](const dpp::slashcommand_t& event) {
+    //event.thinking(true);
     if (event.command.get_command_name() == "ping") {
       event.reply("Pong!");
     } else if (event.command.get_command_name() == "config") {
+      dpp::command_interaction cmd_data = event.command.get_command_interaction();
       //TODO: arg1 = command, arg2 = name, arg2 = value
     }
+    //event.thinking(false);
   });
 
   bot.on_ready([&bot](const dpp::ready_t& event) {
     if (dpp::run_once<struct register_bot_commands>()) {
       bot.global_command_create(dpp::slashcommand("ping", "Ping pong!", bot.me.id));
+      bot.global_command_create(dpp::slashcommand("config", "Let you customize or activate feature", bot.me.id));
     }
   });
 

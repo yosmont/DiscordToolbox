@@ -1,7 +1,7 @@
 #include "Config.hpp"
 #include <fstream>
 
-constexpr nlohmann::json DEFAULT_CONFIG{
+const nlohmann::json DEFAULT_CONFIG{
   {"msgDeleteTrack", {
     {"activate", "false"},
     {"msg", "a message as been deleted"}
