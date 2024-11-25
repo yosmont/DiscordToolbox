@@ -8,7 +8,7 @@ add_subdirectory(submodules/dotenv)
 add_subdirectory(submodules/dpp)
 
 add_executable(discord_toolbox
-  src/Config
+  src/Config.cpp
   src/main.cpp
 )
 
