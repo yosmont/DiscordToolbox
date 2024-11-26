@@ -6,6 +6,16 @@
 
 #include "Config.hpp"
 
+#include <signal.h>
+#include <future>
+
+std::promise<void> end{};
+
+void signal_handler(int sig)
+{
+  end.set_value();
+}
+
 int main() {
   dotenv::env.load_dotenv();
   Config config{};
@@ -56,5 +66,9 @@ int main() {
     bot.message_create(msg);
   });
 
-  bot.start(dpp::st_wait);
+  bot.start(dpp::st_return);
+  signal(SIGTERM, &signal_handler);
+  signal(SIGINT, &signal_handler);
+  end.get_future().wait();
+  bot.shutdown();
 }
