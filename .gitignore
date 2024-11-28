@@ -33,3 +33,5 @@
 
 .env
 build
+discord_toolbox
+config.json
