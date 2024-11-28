@@ -14,16 +14,16 @@ Config::Config(void)
   if (f.is_open()) _data = nlohmann::json::parse(f);
 }
 
-void Config::EditParam(int guildID, const std::string &feature, const std::string &param, const std::string &val)
+void Config::EditParam(const std::string &guildID, const std::string &feature, const std::string &param, const std::string &val)
 {
-  _data[std::to_string(guildID)][feature] = val;
+  _data[guildID][feature] = val;
   std::ofstream f("config.json");
   if (f.is_open()) f << _data.dump();
 }
 
-std::string Config::GetParam(int guildID, const std::string &feature, const std::string &param)
+std::string Config::GetParam(const std::string &guildID, const std::string &feature, const std::string &param)
 {
   nlohmann::json tmp = DEFAULT_CONFIG;
-  if (_data.contains(std::to_string(guildID))) tmp.merge_patch(_data[std::to_string(guildID)]);
+  if (_data.contains(guildID)) tmp.merge_patch(_data[guildID]);
   return tmp[feature][param];
 }
