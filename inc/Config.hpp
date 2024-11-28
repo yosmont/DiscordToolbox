@@ -1,5 +1,5 @@
-#ifndef CONFIG
-#define CONFIG
+#ifndef DISCORD_CONFIG
+#define DISCORD_CONFIG
 
 #include "nlohmann/json.hpp"
 

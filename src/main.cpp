@@ -47,7 +47,7 @@ int main() {
   });
 
   bot.on_ready([&bot](const dpp::ready_t& event) {
-    //if (dpp::run_once<struct register_bot_commands>()) {
+    if (dpp::run_once<struct register_bot_commands>()) {
       bot.global_command_create(dpp::slashcommand("ping", "Ping pong!", bot.me.id));
 
       dpp::slashcommand configCli("config", "Send a random adorable animal photo", bot.me.id);
@@ -62,7 +62,7 @@ int main() {
 	dpp::command_option(dpp::co_string, "val", "new value", true)
       );
       bot.global_command_create(configCli);
-    //}
+    }
   });
 
   bot.on_message_delete([&bot, &config](const dpp::message_delete_t& event) {
