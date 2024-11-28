@@ -1,8 +1,9 @@
 #include "Config.hpp"
 #include <fstream>
+#include <iostream>
 
 const nlohmann::json DEFAULT_CONFIG{
-  {"msgDeleteTrack", {
+  {"msgdeletetrack", {
     {"activate", "false"},
     {"msg", "a message as been deleted"}
   }}
@@ -16,7 +17,7 @@ Config::Config(void)
 
 void Config::EditParam(const std::string &guildID, const std::string &feature, const std::string &param, const std::string &val)
 {
-  _data[guildID][feature] = val;
+  _data[guildID][feature][param] = val;
   std::ofstream f("config.json");
   if (f.is_open()) f << _data.dump();
 }
